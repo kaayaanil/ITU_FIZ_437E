@@ -1,6 +1,6 @@
 # INTRODUCTION
 
-libs/models.py and libs/utils.py directories occurs by the lesson
+libs/models.py and libs/utils.py directories occurs during by the lesson
 
 for control the tree vs. butterfly data, data/data_fun.ipynb notebook
 
