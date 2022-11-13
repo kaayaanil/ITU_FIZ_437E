@@ -4,9 +4,8 @@
 
 utils: fundamental tools for machine learning
 """
-import numpy as np
-from models import KNN       #models is machine learning algorithms creating by anilk
-
+import numpy as np     #models is machine learning algorithms creating by anilk
+from .models import KNN
 # %% Data processing functions
 def train_test_splitter(X,y,size):
     """
@@ -65,9 +64,8 @@ def grid_search(model,params,metric,X_train,y_train,X_test,y_test,epoch):
         
         for k in k_list:
             for distance in distance_list:
-
-                model = KNN(K = k,distance = distance)
-                model.fit(X_train,y_train)
+                model = KNN(K=k,distance=distance)
+                model.fit(X=X_train,y=y_train)
                 y_pred_test = model.predict(X_test)
                 y_pred_train = model.predict(X_train)
 
@@ -93,7 +91,23 @@ euclidean_distance = lambda X,x_pr :np.sqrt(np.sum((X-x_pr)**2,axis=1))
 
 manhattan_distance = lambda X,x_pr :np.sum(np.abs((X-x_pr)),axis=1)
 
+def sigmoid(x,get_derivative = None):
 
+    sigmoid = 1/(1+np.exp(-x))
+    if get_derivative==None:
+        return sigmoid
+    if get_derivative==True:
+        return sigmoid*(1-sigmoid)
 
+def standardization(X):
+    return (X-np.mean(X))/np.std(X)
 
+def normalization(X):
+    return (X-np.max(X))/(np.max(X)-np.min(X))
+ 
+def classification_loss(y_true,y_pred):
+    y_pred = np.squeeze(y_pred)
+    y_true = np.squeeze(y_true)
+    
+    return np.sum(np.abs(y_true-y_pred))/y_pred.shape[0]
  
